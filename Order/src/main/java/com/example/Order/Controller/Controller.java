@@ -31,7 +31,7 @@ public class Controller {
             if (!userResponse.getStatusCode().is2xxSuccessful()) return null;
 
             // Get product
-            String productUrl = "http://localhost:3000/products/" + order.getProductId();
+            String productUrl = "https://inventory62-gmb9cefcguamgec9.eastus2-01.azurewebsites.net/products/" + order.getProductId();
             ResponseEntity<ProductDTO> productResponse = restTemplate.getForEntity(productUrl, ProductDTO.class);
             if (!productResponse.getStatusCode().is2xxSuccessful()) return null;
 
@@ -39,7 +39,7 @@ public class Controller {
             if (product.getStock() < order.getQuantity()) return null;
 
             // Update stock
-            String updateStockUrl = "http://localhost:3000/products/" + order.getProductId() + "/stock?stock=" + (product.getStock() - order.getQuantity());
+            String updateStockUrl = "https://inventory62-gmb9cefcguamgec9.eastus2-01.azurewebsites.net/products/" + order.getProductId() + "/stock?stock=" + (product.getStock() - order.getQuantity());
             restTemplate.put(updateStockUrl, null);
 
             // Save order
